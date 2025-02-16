@@ -57,6 +57,7 @@ namespace ConsoleApp.ConditionsAndDecisions
 
             //Terany operations
             string passStatus = grade < 50 ? "Fail" : "Pass";
+            Console.WriteLine(ceva);
             Console.WriteLine($"Your student status is: {passStatus}");
 
             Console.WriteLine("\n--------------------\n\n");
