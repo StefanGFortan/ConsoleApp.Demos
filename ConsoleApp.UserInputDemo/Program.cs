@@ -1,4 +1,5 @@
-﻿using System.Xml.Linq;
+﻿using System.Globalization;
+using System.Xml.Linq;
 
 namespace ConsoleApp.UserInputDemo
 {
@@ -7,10 +8,11 @@ namespace ConsoleApp.UserInputDemo
         static void Main(string[] args)
         {
             //Declare variables
-            string? firstName;
-            string? lastName;
+            const int retirementAge = 60; 
+            string? firstName = string.Empty;
+            string? lastName = string.Empty;
             int age;
-            int retirementAge = 60;
+            DateOnly dob = new DateOnly();
             decimal salary;
             char gender = char.MinValue;
             bool working = true; // if you do not initialize a bool, it will be automatically initialized with false
@@ -22,8 +24,10 @@ namespace ConsoleApp.UserInputDemo
             Console.Write("Please enter your last name: ");
             lastName = Console.ReadLine();
 
-            Console.Write("Please enter your age: ");
-            age = Convert.ToInt32(Console.ReadLine());
+            Console.Write("Please enter your date of birth (dd/mm/yyyy): ");
+
+            dob = DateOnly.ParseExact(Console.ReadLine(),"dd/MM/yyyy", CultureInfo.InvariantCulture);
+            age = DateTime.Now.Year - dob.Year;
 
             Console.Write("Please enter your last salary: ");
             salary = Convert.ToDecimal(Console.ReadLine());
@@ -31,18 +35,21 @@ namespace ConsoleApp.UserInputDemo
             Console.Write("Please enter your gender (M or F): ");
             gender = Convert.ToChar(Console.ReadLine());
 
-            Console.WriteLine("Are you working? (true or false): ");
+            Console.Write("Are you working? (true or false): ");
             working = Convert.ToBoolean(Console.ReadLine());
+
             // Process the data
             int workingYearsRemaining = retirementAge - age;
+            var estimatedRetirementDate = DateTime.Now.AddYears(workingYearsRemaining);
 
             //Output the result to the user
             Console.WriteLine($"Full name: {firstName} {lastName}");
             Console.WriteLine($"Age: {age}");
-            Console.WriteLine($"Your salary is: {salary}");
+            Console.WriteLine($"Your salary is: {salary.ToString("C")}");
             Console.WriteLine($"Your gender is: {gender}");
             Console.WriteLine($"You are employed: {working}");
             Console.WriteLine($"Working years remainign: {workingYearsRemaining}");
+            Console.WriteLine($"Estimated retirement year: {estimatedRetirementDate.Year}");
         }
     }
 }
