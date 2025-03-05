@@ -23,13 +23,7 @@ namespace ConsoleApp.SampleCalculator
                 {
                     //declare variables
                     int num1 = 0, num2 = 0, answer = 0;
-                    Console.Write("Please select an operation (-1 to exit) : " +
-                        "\n 1.Adition " +
-                        "\n 2.Substraction " +
-                        "\n 3. Multiplication " +
-                        "\n 4.Division " +
-                        "\n 5. Fibonacci sequence" +
-                        "\n Enter please the number for the operation option:");
+                    PrintMenu();
                     choise = Convert.ToInt32(Console.ReadLine());
 
                     if (choise == -1)
@@ -48,29 +42,26 @@ namespace ConsoleApp.SampleCalculator
                     switch (choise)
                     {
                         case 1:
-                            answer = num1 + num2;
+                            answer = AddNumbers(num1,num2);
                             break;
                         case 2:
-                            answer = num1 - num2;
+                            answer = SubtractNumbers(num1,num2);
                             break;
                         case 3:
-                            answer = num1 * num2;
+                            answer = ProductNumbers(num1, num2);
                             break;
                         case 4:
-                            answer = num1 / num2;
+                            answer = QuotientNumbers(num1,num2);
                             break;
                         case 5:
-                            for (int i = num1; i <= num2; i++)
-                            {
-                                answer += i;
-                            }
+                            answer = Fibonacci(num1, num2);
                             break;
                         default:
                             throw new Exception("Invalid menu item selected.");
                     }
 
                     //print output
-                    Console.WriteLine(answer);
+                    Console.WriteLine("The result is: "+answer);
                 }
                 catch (DivideByZeroException)
                 {
@@ -85,10 +76,50 @@ namespace ConsoleApp.SampleCalculator
                 {
                     Console.WriteLine("Press Enter to continue");
                     Console.ReadLine();
-                    Console.Clear();
                 }
             }
             Console.WriteLine("Thank you for using this calculator");
        }
+
+
+
+        //Method Definitions
+        private static int AddNumbers(int num1, int num2)
+        {
+            return num1 + num2;
+        }
+        private static int SubtractNumbers(int num1, int num2)
+        {
+            return num1 - num2;
+        }
+        private static int ProductNumbers(int num1, int num2)
+        {
+            return num1 * num2;
+        }
+        private static int QuotientNumbers(int num1, int num2)
+        {
+            return num1 / num2;
+        }
+
+        private static int Fibonacci(int num1, int num2)
+        {
+            var answer = 0 ;
+            for (int i = num1; i <= num2; i++)
+            {
+                answer += i;
+            }
+            return answer;
+        }
+        private static void PrintMenu()
+        {
+            Console.Clear();
+            Console.Write("Please select an operation (-1 to exit) : " +
+                "\n 1. Adition " +
+                "\n 2. Substraction " +
+                "\n 3. Multiplication " +
+                "\n 4. Division " +
+                "\n 5. Fibonacci sequence" +
+                "\n Enter please the number for the operation option:");
+        }
     }
 }
